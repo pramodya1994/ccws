@@ -1,50 +1,42 @@
 package smellyshapes;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ShapeGroup extends ComplexShape {
 
-    Shape[] shapes = new Shape[10];
-    int size = 0;
+    private List<Shape> shapes = new ArrayList<>();
 
     public ShapeGroup() {
     }
 
     public ShapeGroup(Shape[] shapes, boolean readOnly) {
-        this.shapes = shapes;
-        this.size = shapes.length;
+        this.shapes = List.of(shapes);
         this.readOnly = readOnly;
     }
 
-    public void add(Shape shape) {
-        if (!readOnly) {
-            if (!contains(shape)) {
-                int newSize = size + 1;
-                if (newSize > shapes.length) {
-                    var newShapes = new Shape[shapes.length + 10];
-                    for (int i = 0; i < size; i++) {
-                        newShapes[i] = shapes[i];
-                    }
-                    shapes = newShapes;
-                }
+    public List<Shape> getShapes() {
+        return shapes;
+    }
 
-                shapes[size++] = shape;
-            }
+    public int getSize() {
+        return this.shapes.size();
+    }
+
+    public void add(Shape shape) {
+        if (readOnly || contains(shape)) {
+            return;
         }
+        shapes.add(shape);
     }
 
     public boolean contains(Shape shape) {
-        for (int i = 0; i < size; i++) {
-            if (shapes[i].equals(shape)) {
-                return true;
-            }
-        }
-        return false;
+        return shapes.contains(shape);
     }
 
     public boolean contains(int x, int y) {
-        return Arrays.stream(shapes)
+        return shapes.stream()
                 .filter(Objects::nonNull)
                 .anyMatch(shape -> shape.contains(x, y));
     }

@@ -31,7 +31,7 @@ public abstract class AbstractShape implements Shape {
         } else if (this instanceof ShapeGroup) {
             var group = (ShapeGroup) this;
             builder.append("<shapegroup>\n");
-            IntStream.range(0, group.size).mapToObj(i -> group.shapes[i].toXml()).forEach(builder::append);
+            IntStream.range(0, group.getSize()).mapToObj(i -> group.getShapes().get(i).toXml()).forEach(builder::append);
             builder.append("</shapegroup>\n");
         } else {
             throw new IllegalArgumentException("Unknown shape type: " + this.getClass());

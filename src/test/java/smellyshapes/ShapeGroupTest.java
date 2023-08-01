@@ -36,7 +36,7 @@ public class ShapeGroupTest {
         shapeGroup.add(circle);
         shapeGroup.add(circle);
 
-        assertEquals(1, shapeGroup.size);
+        assertEquals(1, shapeGroup.getSize());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ShapeGroupTest {
 
             shapeGroup.add(new Circle(0, 0, 0));
 
-            assertEquals(1, shapeGroup.size);
+            assertEquals(1, shapeGroup.getSize());
         }
 
 
@@ -108,7 +108,7 @@ public class ShapeGroupTest {
                 shapeGroup.add(new Circle(0, 0, 0));
             }
 
-            assertEquals(11, shapeGroup.size);
+            assertEquals(11, shapeGroup.getSize());
         }
 
         @Test
@@ -123,7 +123,7 @@ public class ShapeGroupTest {
             shapeGroup.add(shape);
             shapeGroup.add(shape);
 
-            assertEquals(10, shapeGroup.size);
+            assertEquals(10, shapeGroup.getSize());
         }
     }
 
@@ -145,7 +145,7 @@ public class ShapeGroupTest {
 
             shapeGroup.add(new Circle(0, 0, 0));
 
-            assertEquals(0, shapeGroup.size);
+            assertEquals(0, shapeGroup.getSize());
         }
     }
 
@@ -163,7 +163,7 @@ public class ShapeGroupTest {
         @Test
         @DisplayName("has a size of 1")
         public void constructor_withShapeArray() {
-            assertEquals(1, shapeGroup.size);
+            assertEquals(1, shapeGroup.getSize());
         }
     }
 
