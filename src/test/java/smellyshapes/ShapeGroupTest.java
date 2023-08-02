@@ -30,8 +30,6 @@ public class ShapeGroupTest {
     @Test
     @DisplayName("cannot be added the same shape twice")
     public void add_sameElementTwice() {
-        shapeGroup.setReadOnly(false);
-
         Circle circle = new Circle(0, 0, 0);
         shapeGroup.add(circle);
         shapeGroup.add(circle);
@@ -91,7 +89,6 @@ public class ShapeGroupTest {
         @DisplayName("can be added additional shapes")
         public void add_withoutReadOnly() {
             shapeGroup = new ShapeGroup();
-            shapeGroup.setReadOnly(false);
 
             shapeGroup.add(new Circle(0, 0, 0));
 
@@ -102,8 +99,6 @@ public class ShapeGroupTest {
         @Test
         @DisplayName("increases the number of elements it can hold on add once exceeded")
         public void add_internalArraySizeExceeded() {
-            shapeGroup.setReadOnly(false);
-
             for (int i = 0; i < 11; i++) {
                 shapeGroup.add(new Circle(0, 0, 0));
             }
@@ -114,8 +109,6 @@ public class ShapeGroupTest {
         @Test
         @DisplayName("won't increase the number of elements on add if the size limit is reached but already contains the element")
         public void add_notIncreasingSizeIfElementNotAdded() {
-            shapeGroup.setReadOnly(false);
-
             for (int i = 0; i < 9; i++) {
                 shapeGroup.add(new Circle(0, 0, 0));
             }
@@ -128,28 +121,6 @@ public class ShapeGroupTest {
     }
 
     @Nested
-    @DisplayName("when read only")
-    class WhenInitialisedEmpty {
-
-        private ShapeGroup shapeGroup;
-
-        @BeforeEach
-        public void init() {
-            shapeGroup = new ShapeGroup();
-        }
-
-        @Test
-        @DisplayName("cannot add another element")
-        public void add_withReadOnly() {
-            shapeGroup.setReadOnly(true);
-
-            shapeGroup.add(new Circle(0, 0, 0));
-
-            assertEquals(0, shapeGroup.size);
-        }
-    }
-
-    @Nested
     @DisplayName("when initialised with shape array containing one element")
     class WhenInitialisedWithOneElement {
 
@@ -157,7 +128,7 @@ public class ShapeGroupTest {
 
         @BeforeEach
         void initWithOneElement() {
-            shapeGroup = new ShapeGroup(new Shape[]{new Circle(0, 0, 0)}, true);
+            shapeGroup = new ShapeGroup(new Shape[]{new Circle(0, 0, 0)});
         }
 
         @Test

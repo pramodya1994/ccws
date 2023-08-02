@@ -8,23 +8,17 @@ public class ShapeGroup implements Shape {
 
     Shape[] shapes = new Shape[10];
     int size = 0;
-    protected boolean readOnly = false;
 
     public ShapeGroup() {
     }
 
-    public ShapeGroup(Shape[] shapes, boolean readOnly) {
+    public ShapeGroup(Shape[] shapes) {
         this.shapes = shapes;
         this.size = shapes.length;
-        this.readOnly = readOnly;
-    }
-
-    public void setReadOnly(boolean readOnly) {
-        this.readOnly = readOnly;
     }
 
     public void add(Shape shape) {
-        if (readOnly || contains(shape)) {
+        if (contains(shape)) {
             return;
         }
 
