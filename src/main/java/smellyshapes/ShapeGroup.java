@@ -1,21 +1,21 @@
 package smellyshapes;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.stream.IntStream;
+import java.util.Set;
 
 public class ShapeGroup implements Shape {
 
     protected boolean readOnly = false;
-    Shape[] shapes = new Shape[10];
+    Set<Shape> shapes = new HashSet<>();
     int size = 0;
 
     public ShapeGroup() {
     }
 
-    public ShapeGroup(Shape[] shapes, boolean readOnly) {
-        this.shapes = shapes;
-        this.size = shapes.length;
+    public ShapeGroup(Set<Shape> shapes, boolean readOnly) {
+        this.shapes.addAll(shapes);
+        this.size = shapes.size();
         this.readOnly = readOnly;
     }
 
@@ -24,40 +24,20 @@ public class ShapeGroup implements Shape {
             return;
         }
 
-        if (shouldGrow()) {
-            grow();
-        }
-
         addToShapes(shape);
     }
 
     private void addToShapes(Shape shape) {
-        shapes[size++] = shape;
-    }
-
-    private void grow() {
-        var newShapes = new Shape[shapes.length + 10];
-        for (int i = 0; i < size; i++) {
-            newShapes[i] = shapes[i];
-        }
-        shapes = newShapes;
-    }
-
-    private boolean shouldGrow() {
-        return size + 1 > shapes.length;
+        this.shapes.add(shape);
+        this.size++;
     }
 
     public boolean contains(Shape shape) {
-        for (int i = 0; i < size; i++) {
-            if (shapes[i].equals(shape)) {
-                return true;
-            }
-        }
-        return false;
+        return this.shapes.contains(shape);
     }
 
     public boolean contains(int x, int y) {
-        return Arrays.stream(shapes)
+        return this.shapes.stream()
                 .filter(Objects::nonNull)
                 .anyMatch(shape -> shape.contains(x, y));
     }
@@ -66,9 +46,7 @@ public class ShapeGroup implements Shape {
         StringBuilder builder = new StringBuilder();
 
         builder.append("<shapegroup>\n");
-        IntStream.range(0, this.size)
-                .mapToObj(i -> this.shapes[i].toXml())
-                .forEach(builder::append);
+        this.shapes.stream().map(Shape::toXml).forEach(builder::append);
         builder.append("</shapegroup>\n");
 
         return builder.toString();

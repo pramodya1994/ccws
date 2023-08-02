@@ -5,6 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("A shape group")
@@ -157,7 +161,7 @@ public class ShapeGroupTest {
 
         @BeforeEach
         void initWithOneElement() {
-            shapeGroup = new ShapeGroup(new Shape[]{new Circle(0, 0, 0)}, true);
+            shapeGroup = new ShapeGroup(new HashSet<>(Set.of(new Circle(0, 0, 0))), true);
         }
 
         @Test
