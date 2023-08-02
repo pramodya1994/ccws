@@ -2,11 +2,13 @@ package smellyshapes;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
-public class ShapeGroup extends ComplexShape {
+public class ShapeGroup implements Shape {
 
     Shape[] shapes = new Shape[10];
     int size = 0;
+    protected boolean readOnly = false;
 
     public ShapeGroup() {
     }
@@ -14,6 +16,10 @@ public class ShapeGroup extends ComplexShape {
     public ShapeGroup(Shape[] shapes, boolean readOnly) {
         this.shapes = shapes;
         this.size = shapes.length;
+        this.readOnly = readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
@@ -59,4 +65,14 @@ public class ShapeGroup extends ComplexShape {
                 .filter(Objects::nonNull)
                 .anyMatch(shape -> shape.contains(x, y));
     }
+
+    @Override
+    public String toXml() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<shapegroup>\n");
+        IntStream.range(0, this.size).mapToObj(i -> this.shapes[i].toXml()).forEach(builder::append);
+        builder.append("</shapegroup>\n");
+        return builder.toString();
+    }
+
 }

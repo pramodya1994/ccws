@@ -1,6 +1,6 @@
 package smellyshapes;
 
-public class Circle extends SimpleShape {
+public class Circle implements Shape {
 
     private int x;
     private int y;
@@ -32,6 +32,17 @@ public class Circle extends SimpleShape {
             }
         }
         return numberOfContainingPoints;
+    }
+
+    @Override
+    public String toXml() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<circle");
+        builder.append(" x=\"" + this.getX() + "\"");
+        builder.append(" y=\"" + this.getY() + "\"");
+        builder.append(" radius=\"" + this.getRadius() + "\"");
+        builder.append(" />\n");
+        return builder.toString();
     }
 
     /**

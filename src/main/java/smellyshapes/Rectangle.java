@@ -1,7 +1,7 @@
 package smellyshapes;
 
 
-public class Rectangle extends SimpleShape {
+public class Rectangle implements Shape {
 
     protected Color c = new Color("Blue");
     int width;
@@ -43,5 +43,17 @@ public class Rectangle extends SimpleShape {
     public String toString() {
         return String.format("Rectangle: (%d,%d) width=%d height=%d color=%s", x, y, width, height,
                              c.getColorAsHex());
+    }
+
+    @Override
+    public String toXml() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<rectangle");
+        builder.append(" x=\"" + this.getX() + "\"");
+        builder.append(" y=\"" + this.getY() + "\"");
+        builder.append(" width=\"" + this.getWidth() + "\"");
+        builder.append(" height=\"" + this.getHeight() + "\"");
+        builder.append(" />\n");
+        return builder.toString();
     }
 }
