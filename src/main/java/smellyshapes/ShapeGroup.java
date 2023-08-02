@@ -8,14 +8,12 @@ public class ShapeGroup implements Shape {
 
     protected boolean readOnly = false;
     Set<Shape> shapes = new HashSet<>();
-    int size = 0;
 
     public ShapeGroup() {
     }
 
     public ShapeGroup(Set<Shape> shapes, boolean readOnly) {
         this.shapes.addAll(shapes);
-        this.size = shapes.size();
         this.readOnly = readOnly;
     }
 
@@ -29,7 +27,6 @@ public class ShapeGroup implements Shape {
 
     private void addToShapes(Shape shape) {
         this.shapes.add(shape);
-        this.size++;
     }
 
     public boolean contains(Shape shape) {
@@ -54,5 +51,9 @@ public class ShapeGroup implements Shape {
 
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
+    }
+
+    public int size() {
+        return this.shapes.size();
     }
 }
