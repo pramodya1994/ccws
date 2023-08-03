@@ -1,7 +1,7 @@
 package smellyshapes;
 
 
-public class Rectangle extends SimpleShape {
+public class Rectangle extends AbstractShape {
 
     protected Color c = new Color("Blue");
     int width;

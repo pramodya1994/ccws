@@ -3,8 +3,11 @@ package smellyshapes;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class ShapeGroup extends ComplexShape {
+// TODO: Speculative generality
+// Can move down required functions
+public class ShapeGroup extends AbstractShape {
 
+    protected boolean readOnly = false;
     Shape[] shapes = new Shape[10];
     int size = 0;
 
@@ -58,5 +61,9 @@ public class ShapeGroup extends ComplexShape {
         return Arrays.stream(shapes)
                 .filter(Objects::nonNull)
                 .anyMatch(shape -> shape.contains(x, y));
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 }

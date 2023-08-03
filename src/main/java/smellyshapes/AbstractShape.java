@@ -4,6 +4,8 @@ import java.util.stream.IntStream;
 
 public abstract class AbstractShape implements Shape {
 
+    // TODO: Open close violation
+    // Open for extension, close for modification
     public String toXml() {
         StringBuilder builder = new StringBuilder();
         if (this instanceof Circle) {
